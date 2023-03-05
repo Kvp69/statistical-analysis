@@ -510,3 +510,36 @@ plt.show()
 The first plot shows the kernel density estimation plot generated from the samples using inverse CDF sampling, along with the true PDF of the Fréchet distribution. We can see that the kernel density estimation plot closely matches the true PDF.
 
 The second plot shows the CDF of the Fréchet distribution, which is useful for visualizing the quantiles of the distribution.
+# ALSO https://en.wikipedia.org/wiki/File:Frechet_pdf.svg FIGURE WILL SIMILARLY PRODUCE BY PYTHON CODE
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import frechet_r
+
+fig, ax = plt.subplots(1, 1)
+
+# Define the parameters of the Frechet distribution
+c = 1.0
+loc = 0.0
+scale = 1.0
+
+# Generate a range of x values
+x = np.linspace(frechet_r.ppf(0.01, c, loc, scale),
+                frechet_r.ppf(0.99, c, loc, scale), 100)
+
+# Plot the probability density function
+ax.plot(x, frechet_r.pdf(x, c, loc, scale),
+        'r-', lw=5, alpha=0.6, label='Frechet pdf')
+
+# Add axis labels and a legend
+ax.set_xlabel('x')
+ax.set_ylabel('Probability density')
+ax.legend(loc='best')
+
+# Display the plot
+plt.show()
+# INSIGHT OF THE PLOT https://en.wikipedia.org/wiki/File:Frechet_pdf.svg
+The plot depicts the probability density function (PDF) of the Frechet distribution, with the location and scale parameters set to 0 and 1, respectively. The PDF is shown for three different values of the shape parameter c (1, 2, and 5). The x-axis represents the possible values of the random variable x, and the y-axis represents the density of the probability distribution.
+
+As the value of c increases, the shape of the PDF changes. For smaller values of c, the PDF is more dispersed, with a longer tail to the right, positevly disperssed. In contrast, for larger values of c, the PDF becomes more concentrated around the center and has a shorter right tail, negatively dispersed.
+
