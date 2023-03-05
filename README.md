@@ -503,7 +503,9 @@ plt.plot(x, cdf)
 plt.xlabel('x')
 plt.ylabel('CDF')
 plt.title('CDF of the Fréchet distribution')
-plt.show()
+plt.show() 
+
+#CONCLUSION 
 
 The first plot shows the kernel density estimation plot generated from the samples using inverse CDF sampling, along with the true PDF of the Fréchet distribution. We can see that the kernel density estimation plot closely matches the true PDF.
 
