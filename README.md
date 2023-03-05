@@ -447,4 +447,64 @@ plt.show()
 d. Insights:
 From the comparison of the three methods, we can see that the HMC and NUTS methods give very similar results, which are also very close to the true posterior distribution. However, the HMC method is slower to compute than the NUTS method.
 
+# ANSWER OF QUESTION 1 
+
+
 The variational inference method gives a good approximation of the true posterior distribution, but the approximation is not as accurate as the HMC and NUTS methods. However, the variational inference method is much faster to compute than the HMC and NUTS methods.
+
+To implement Inverse CDF sampling for the Fréchet distribution, we first need to find the inverse CDF function. The CDF of the Fréchet distribution with shape parameter $\alpha$, scale parameter $s$, and location parameter $m$ is given by:
+
+$$ F(x;\alpha,s,m) = \begin{cases} \exp\left(-\left(\frac{x-m}{s}\right)^{-\alpha}\right) & \text{for } x \geq m \ 0 & \text{otherwise} \end{cases} $$
+
+To find the inverse CDF function, we solve for $x$ in the equation $F(x) = u$, where $u$ is a uniform random variable:
+
+$$ \exp\left(-\left(\frac{x-m}{s}\right)^{-\alpha}\right) = u $$
+
+Taking the logarithm of both sides, we get:
+
+$$ -\left(\frac{x-m}{s}\right)^{-\alpha} = \log(u) $$
+
+Solving for $x$, we get:
+
+$$ x = m + s\left(-\log(u)\right)^{-1/\alpha} $$
+
+We can use this equation to generate samples from the Fréchet distribution using inverse CDF sampling.
+
+Here's the Python code to implement inverse CDF sampling for the Fréchet distribution with shape parameter $\alpha=3$, scale parameter $s=3$, and location parameter $m=3$:
+PYTHON CODE
+import numpy as np
+from scipy.stats import frechet
+import matplotlib.pyplot as plt
+
+# Define the parameters of the Fréchet distribution
+alpha = 3
+s = 3
+m = 3
+
+# Define the number of samples to generate
+n_samples = 100000
+
+# Generate samples using inverse CDF sampling
+u = np.random.uniform(size=n_samples)
+x = m + s*(-np.log(u))**(-1/alpha)
+
+# Plot the kernel density estimation plot
+plt.hist(x, bins=100, density=True, alpha=0.5)
+plt.plot(np.linspace(0, 10, 1000), frechet.pdf(np.linspace(0, 10, 1000), alpha, scale=s, loc=m), linewidth=2, color='red')
+plt.xlabel('x')
+plt.ylabel('Density')
+plt.title('Kernel density estimation plot')
+plt.show()
+
+# Visualize the CDF
+x = np.linspace(0, 10, 1000)
+cdf = frechet.cdf(x, alpha, scale=s, loc=m)
+plt.plot(x, cdf)
+plt.xlabel('x')
+plt.ylabel('CDF')
+plt.title('CDF of the Fréchet distribution')
+plt.show()
+
+The first plot shows the kernel density estimation plot generated from the samples using inverse CDF sampling, along with the true PDF of the Fréchet distribution. We can see that the kernel density estimation plot closely matches the true PDF.
+
+The second plot shows the CDF of the Fréchet distribution, which is useful for visualizing the quantiles of the distribution.
