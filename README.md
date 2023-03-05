@@ -303,15 +303,14 @@ prior_prob = jnp.array([0.5, 0.5])
 def likelihood(params, data):
     alpha, beta = params
     return jnp.prod(jnp.power(jnp.power(data, alpha-1) * jnp.power(1-data, beta-1), 1/len(data)))
-
-# Define the posterior probability function
+#Define the posterior probability function
 def posterior(params, data):
     alpha, beta = params
     prior = jnp.log(prior_prob)
     likelihood_ = jnp.log(likelihood(params, data))
     return prior + likelihood_
 
-# Define
+#Define
 
 the observed data
 data = jnp.array([1, 0, 1, 1, 0, 1, 1, 1, 1, 1], dtype=jnp.float32)
@@ -442,12 +441,12 @@ plt.contourf(grid_alpha, grid_beta, posterior, levels=50, cmap=plt.cm.jet)
 plt.xlabel('alpha')
 plt.ylabel('beta')
 plt.title('Posterior distribution')
-plt.show()
-
+plt.show() 
 d. Insights:
 From the comparison of the three methods, we can see that the HMC and NUTS methods give very similar results, which are also very close to the true posterior distribution. However, the HMC method is slower to compute than the NUTS method.
 
-# ANSWER OF QUESTION 1 
+# ANSWER OF QUESTION 6
+
 
 
 The variational inference method gives a good approximation of the true posterior distribution, but the approximation is not as accurate as the HMC and NUTS methods. However, the variational inference method is much faster to compute than the HMC and NUTS methods.
@@ -510,6 +509,9 @@ plt.show()
 The first plot shows the kernel density estimation plot generated from the samples using inverse CDF sampling, along with the true PDF of the Fréchet distribution. We can see that the kernel density estimation plot closely matches the true PDF.
 
 The second plot shows the CDF of the Fréchet distribution, which is useful for visualizing the quantiles of the distribution.
+
+
+
 # ALSO https://en.wikipedia.org/wiki/File:Frechet_pdf.svg FIGURE WILL SIMILARLY PRODUCE BY PYTHON CODE
 
 import numpy as np
@@ -538,8 +540,21 @@ ax.legend(loc='best')
 
 # Display the plot
 plt.show()
+
+
+
 # INSIGHT OF THE PLOT https://en.wikipedia.org/wiki/File:Frechet_pdf.svg
 The plot depicts the probability density function (PDF) of the Frechet distribution, with the location and scale parameters set to 0 and 1, respectively. The PDF is shown for three different values of the shape parameter c (1, 2, and 5). The x-axis represents the possible values of the random variable x, and the y-axis represents the density of the probability distribution.
 
 As the value of c increases, the shape of the PDF changes. For smaller values of c, the PDF is more dispersed, with a longer tail to the right, positevly disperssed. In contrast, for larger values of c, the PDF becomes more concentrated around the center and has a shorter right tail, negatively dispersed.
+
+#  ANSWER OF QUESTION 5 
+
+This paper introduces a new approach to deep Bayesian active learning called BatchBALD. The authors aim to select multiple informative points jointly using a tractable approximation to the mutual information between a batch of points and model parameters, which serves as an acquisition function. BatchBALD is a linear-time, greedy algorithm that is amenable to dynamic programming and efficient caching.
+
+The authors compared BatchBALD to the commonly used approach for batch data acquisition and found that the current approach often acquires similar and redundant points, sometimes performing worse than random data acquisition. However, BatchBALD considers dependencies within an acquisition batch, leading to significant improvements in data efficiency.
+
+To demonstrate the effectiveness of BatchBALD, the authors conducted experiments on standard benchmarks, achieving state-of-the-art performance and substantial improvements in data efficiency.
+
+Overall, BatchBALD is a novel and efficient approach to deep Bayesian active learning that allows for the joint selection of informative points in a batch. By considering dependencies within a batch, BatchBALD outperforms current methods and provides substantial improvements in data efficiency, which could have practical applications in various fields, such as image classification, natural language processing, and medical diagnosis.
 
